@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalGrupChallengeApp.Entities", "PortalGrupChallengeApp.Entities\PortalGrupChallengeApp.Entities.csproj", "{DCC7EF75-2E47-447B-B7DD-6DD26623B00C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalGrupChallengeApp.DataAccess", "PortalGrupChallengeApp.DataAccess\PortalGrupChallengeApp.DataAccess.csproj", "{95CBE1C7-2758-439B-996E-5728B6316C50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalGrupChallengeApp.API", "PortalGrupChallengeApp.API\PortalGrupChallengeApp.API.csproj", "{4EEB1CB7-F12A-430F-B024-34115CED2658}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalGrupChallengeApp.Core", "PortalGrupChallengeApp.Core\PortalGrupChallengeApp.Core.csproj", "{3968A012-70E9-4651-AAE5-87C9BF03F3F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalGrupChallengeApp.Business", "PortalGrupChallengeApp.Business\PortalGrupChallengeApp.Business.csproj", "{BE871E9D-737A-42AF-A459-6F03D11F0744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalGrupChallengeApp.Tests", "PortalGrupChallengeApp.Tests\PortalGrupChallengeApp.Tests.csproj", "{86734CC8-9915-47B6-88F4-62137CFFBF75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCC7EF75-2E47-447B-B7DD-6DD26623B00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCC7EF75-2E47-447B-B7DD-6DD26623B00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCC7EF75-2E47-447B-B7DD-6DD26623B00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCC7EF75-2E47-447B-B7DD-6DD26623B00C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95CBE1C7-2758-439B-996E-5728B6316C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95CBE1C7-2758-439B-996E-5728B6316C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95CBE1C7-2758-439B-996E-5728B6316C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95CBE1C7-2758-439B-996E-5728B6316C50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EEB1CB7-F12A-430F-B024-34115CED2658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EEB1CB7-F12A-430F-B024-34115CED2658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EEB1CB7-F12A-430F-B024-34115CED2658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EEB1CB7-F12A-430F-B024-34115CED2658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3968A012-70E9-4651-AAE5-87C9BF03F3F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3968A012-70E9-4651-AAE5-87C9BF03F3F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3968A012-70E9-4651-AAE5-87C9BF03F3F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3968A012-70E9-4651-AAE5-87C9BF03F3F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE871E9D-737A-42AF-A459-6F03D11F0744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE871E9D-737A-42AF-A459-6F03D11F0744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE871E9D-737A-42AF-A459-6F03D11F0744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE871E9D-737A-42AF-A459-6F03D11F0744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86734CC8-9915-47B6-88F4-62137CFFBF75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86734CC8-9915-47B6-88F4-62137CFFBF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86734CC8-9915-47B6-88F4-62137CFFBF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86734CC8-9915-47B6-88F4-62137CFFBF75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
