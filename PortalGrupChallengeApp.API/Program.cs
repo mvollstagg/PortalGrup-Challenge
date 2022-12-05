@@ -14,7 +14,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 );
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "VRServer.API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PortalGrupChallengeApp.API", Version = "v1" });
 });
 builder.Services.AddEndpointsApiExplorer();
 
@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VRServer.API v1"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PortalGrupChallengeApp.API v1"));
 }
 
 app.UseHttpsRedirection();

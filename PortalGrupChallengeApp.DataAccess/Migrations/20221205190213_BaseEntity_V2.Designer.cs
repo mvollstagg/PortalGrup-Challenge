@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalGrupChallengeApp.DataAccess.Concrete.EntityFramework.Context;
 
@@ -10,9 +11,10 @@ using PortalGrupChallengeApp.DataAccess.Concrete.EntityFramework.Context;
 namespace PortalGrupChallengeApp.DataAccess.Migrations
 {
     [DbContext(typeof(PortalGrupChallengeContext))]
-    partial class PortalGrupChallengeContextModelSnapshot : ModelSnapshot
+    [Migration("20221205190213_BaseEntity_V2")]
+    partial class BaseEntity_V2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

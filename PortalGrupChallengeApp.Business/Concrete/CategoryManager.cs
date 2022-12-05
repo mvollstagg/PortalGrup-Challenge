@@ -36,9 +36,9 @@ public class CategoryManager : ICategoryService
         return resultList.ToList();
     }
 
-    public async Task<string> UpdateAsync(Category category)
+    public async Task<Category> UpdateAsync(Category category)
     {
         await _categoryDal.UpdateAsync(category);
-        return Messages.UpdateMessage;
+        return category;
     }
 }
