@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PortalGrupChallengeApp.Core\PortalGrupChallengeApp.Core.csproj" />
+    <ProjectReference Include="..\PortalGrupChallengeApp.DataAccess\PortalGrupChallengeApp.DataAccess.csproj" />
+    <ProjectReference Include="..\PortalGrupChallengeApp.Entities\PortalGrupChallengeApp.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

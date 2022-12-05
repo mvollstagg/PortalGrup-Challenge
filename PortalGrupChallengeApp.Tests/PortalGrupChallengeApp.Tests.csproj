@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Moq" Version="4.18.3" />
     <PackageReference Include="FluentAssertions" Version="6.8.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -27,6 +28,7 @@
     <ProjectReference Include="..\PortalGrupChallengeApp.Business\PortalGrupChallengeApp.Business.csproj" />
     <ProjectReference Include="..\PortalGrupChallengeApp.Core\PortalGrupChallengeApp.Core.csproj" />
     <ProjectReference Include="..\PortalGrupChallengeApp.Entities\PortalGrupChallengeApp.Entities.csproj" />
+    <ProjectReference Include="..\PortalGrupChallengeApp.API\PortalGrupChallengeApp.API.csproj" />
   </ItemGroup>
 
 </Project>
