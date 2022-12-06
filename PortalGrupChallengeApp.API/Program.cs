@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "PortalGrupChallengeApp.API", Version = "v1" });
 });
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 JsonConvert.DefaultSettings = () => new JsonSerializerSettings

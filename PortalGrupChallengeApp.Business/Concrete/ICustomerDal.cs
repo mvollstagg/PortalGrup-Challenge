@@ -26,13 +26,16 @@ public class CustomerManager : ICustomerService
 
     public async Task<Customer> GetByCustomerIdAsync(int customerId)
     {
-        var result = await _customerDal.GetFirstOrDefaultAsync(x => x.Id == customerId);
+        var result = await _customerDal.GetFirstOrDefaultAsync(
+            x => x.Id == customerId);
         return result;
     }
 
     public async Task<List<Customer>> GetCustomerListAsync()
     {
-        var resultList = await _customerDal.GetListAsync();
+        var resultList = await _customerDal.GetListAsync(
+            x => x.Status == true, 
+            x => x.OrderBy(x => x.CreationDate));
         return resultList.ToList();
     }
 
@@ -40,5 +43,17 @@ public class CustomerManager : ICustomerService
     {
         await _customerDal.UpdateAsync(customer);
         return customer;
+    }
+
+    public async Task<string> AddCustomerAddressAsync(Address address)
+    {
+        await _customerDal.AddAddress(address);
+        return Messages.AddMessage;
+    }
+
+    public async Task<string> UpdateCustomerAddressAsync(Address address)
+    {
+        await _customerDal.UpdateAddress(address);
+        return Messages.UpdateMessage;
     }
 }

@@ -24,9 +24,9 @@ public class AddressManager : IAddressService
         return Messages.DeleteMessage;
     }
 
-    public async Task<Address> GetByAddressIdAsync(int addressId)
+    public async Task<Address> GetByCustomerIdAsync(int addressId)
     {
-        var result = await _addressDal.GetFirstOrDefaultAsync(x => x.Id == addressId);
+        var result = await _addressDal.GetFirstOrDefaultAsync(x => x.CustomerId == addressId);
         return result;
     }
 

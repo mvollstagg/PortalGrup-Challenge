@@ -9,4 +9,6 @@ public interface ICustomerService
     Task<Customer> AddAsync(Customer customer);
     Task<Customer> UpdateAsync(Customer customer);
     Task<string> DeleteAsync(Customer customer);
+    Task<string> AddCustomerAddressAsync(Address address);
+    Task<string> UpdateCustomerAddressAsync(Address address);
 }

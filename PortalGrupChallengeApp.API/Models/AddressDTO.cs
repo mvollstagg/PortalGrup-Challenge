@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using PortalGrupChallengeApp.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace PortalGrupChallengeApp.Entities.Concrete;
+namespace PortalGrupChallengeApp.API.Models;
 
-public class Address : Entity
+public class AddressDTO
 {
-    public int CustomerId { get; set; }
     [MaxLength(250)]
     public string AddressLine { get; set; }
     [MaxLength(30)]
@@ -17,5 +15,4 @@ public class Address : Entity
     public int ZipCode { get; set; }
     public bool Status { get; set; }
     public DateTime CreationDate { get; set; }
-    public virtual Customer? Customer { get; set; }
 }

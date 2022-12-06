@@ -4,7 +4,7 @@ namespace PortalGrupChallengeApp.Business.Abstract;
 
 public interface IAddressService
 {
-    Task<Address> GetByAddressIdAsync(int addressId);
+    Task<Address> GetByCustomerIdAsync(int customerId);
     Task<List<Address>> GetAddressListAsync();
     Task<Address> AddAsync(Address address);
     Task<Address> UpdateAsync(Address address);
