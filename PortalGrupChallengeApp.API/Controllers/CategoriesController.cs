@@ -49,8 +49,12 @@ namespace PortalGrupChallengeApp.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory([FromBody] Category category)
-        {            
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] Category category)
+        {
+            var categoryRow = await _categoryService.GetByCategoryIdAsync(id);
+            if(categoryRow == null)
+                return NotFound();
+                
             var updatedCategory = await _categoryService.UpdateAsync(category);
             if (updatedCategory != null)
             {
@@ -60,12 +64,13 @@ namespace PortalGrupChallengeApp.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory([FromBody] Category category)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
+            var category = await _categoryService.GetByCategoryIdAsync(id);
             var deletedCategory = await _categoryService.DeleteAsync(category);
             if (deletedCategory != null)
             {
-               return Ok($"Category with {category.Id} Id is deleted");
+               return Ok($"Category '{category.Name}' is deleted");
             }
             return BadRequest();
         }

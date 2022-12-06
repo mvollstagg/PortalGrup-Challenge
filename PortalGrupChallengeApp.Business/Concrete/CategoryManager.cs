@@ -20,7 +20,7 @@ public class CategoryManager : ICategoryService
 
     public async Task<string> DeleteAsync(Category category)
     {
-        await _categoryDal.UpdateAsync(category);
+        await _categoryDal.RemoveAsync(category);
         return Messages.DeleteMessage;
     }
 

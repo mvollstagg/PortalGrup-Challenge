@@ -99,7 +99,7 @@ public class CategoryServiceTest
         //Arrange
         var newCategory = CategoryMD.GetNewCategory();
         _mockCategoryService
-            .Setup(x => x.AddAsync(newCategory))
+            .Setup(service => service.AddAsync(newCategory))
             .ReturnsAsync(newCategory);
         var sut = new CategoriesController(_mockCategoryService.Object);
 
@@ -137,17 +137,40 @@ public class CategoryServiceTest
         var newCategory = CategoryMD.GetNewCategory();
         var updatedCategory = CategoryMD.GetNullCategory();
         _mockCategoryService
-            .Setup(x => x.UpdateAsync(newCategory))
+            .Setup(service => service.GetByCategoryIdAsync(newCategory.Id))
+            .ReturnsAsync(newCategory);
+        _mockCategoryService
+            .Setup(service => service.UpdateAsync(newCategory))
             .ReturnsAsync(updatedCategory);            
         var sut = new CategoriesController(_mockCategoryService.Object);
         
         // Act
-        var result = await sut.UpdateCategory(CategoryMD.GetNewCategory());
+        var result = await sut.UpdateCategory(newCategory.Id, newCategory);
         var resultValue = (BadRequestResult)result;
 
         // Assert
         result.Should().BeOfType<BadRequestResult>();
         resultValue.StatusCode.Should().Be(400);
+    }
+
+    [Fact]
+    public async Task Put_UpdateCategory_OnNotFound()
+    {
+        // Arrange
+        var newCategory = CategoryMD.GetNewCategory();
+        var updatedCategory = CategoryMD.GetNullCategory();
+        _mockCategoryService
+            .Setup(service => service.UpdateAsync(newCategory))
+            .ReturnsAsync(updatedCategory);            
+        var sut = new CategoriesController(_mockCategoryService.Object);
+        
+        // Act
+        var result = await sut.UpdateCategory(newCategory.Id, newCategory);
+        var resultValue = (NotFoundResult)result;
+
+        // Assert
+        result.Should().BeOfType<NotFoundResult>();
+        resultValue.StatusCode.Should().Be(404);
     }
 
     [Fact]
@@ -157,12 +180,15 @@ public class CategoryServiceTest
         var newCategory = CategoryMD.GetNewCategory();
         var updatedCategory = CategoryMD.GetUpdatedCategory();
         _mockCategoryService
-            .Setup(x => x.UpdateAsync(newCategory))
+            .Setup(service => service.GetByCategoryIdAsync(newCategory.Id))
+            .ReturnsAsync(newCategory);
+        _mockCategoryService
+            .Setup(service => service.UpdateAsync(newCategory))
             .ReturnsAsync(updatedCategory);
         var sut = new CategoriesController(_mockCategoryService.Object);
 
         //Act
-        var result = await sut.UpdateCategory(newCategory);
+        var result = await sut.UpdateCategory(newCategory.Id, newCategory);
         var resultValue = (Category)((ObjectResult)result).Value;
         //Assert
         result.Should().BeOfType<OkObjectResult>();
@@ -178,18 +204,21 @@ public class CategoryServiceTest
         //Arrange
         var deleteCategory = CategoryMD.GetNewCategory();
         _mockCategoryService
-            .Setup(x => x.DeleteAsync(deleteCategory))
-            .ReturnsAsync($"Category with {deleteCategory.Id} Id is deleted");
+            .Setup(service => service.GetByCategoryIdAsync(deleteCategory.Id))
+            .ReturnsAsync(deleteCategory);
+        _mockCategoryService
+            .Setup(service => service.DeleteAsync(deleteCategory))
+            .ReturnsAsync($"Category '{deleteCategory.Name}' is deleted");
         var sut = new CategoriesController(_mockCategoryService.Object);
 
         //Act
-        var result = await sut.DeleteCategory(deleteCategory);
+        var result = await sut.DeleteCategory(deleteCategory.Id);
         var resultValue = (ObjectResult)result;
         //Assert
         result.Should().BeOfType<OkObjectResult>();
         resultValue.Should().BeOfType<OkObjectResult>();
         resultValue.StatusCode.Should().Be(200);
-        Assert.True(resultValue.Value.ToString() == $"Category with {deleteCategory.Id} Id is deleted");
+        Assert.True(resultValue.Value.ToString() == $"Category '{deleteCategory.Name}' is deleted");
     }
 
     [Fact]
@@ -198,11 +227,11 @@ public class CategoryServiceTest
         //Arrange
         var deleteCategory = CategoryMD.GetNewCategory();
         _mockCategoryService
-            .Setup(x => x.DeleteAsync(deleteCategory));
+            .Setup(service => service.DeleteAsync(deleteCategory));
         var sut = new CategoriesController(_mockCategoryService.Object);
 
         //Act
-        var result = await sut.DeleteCategory(deleteCategory);
+        var result = await sut.DeleteCategory(deleteCategory.Id);
         var resultValue = (BadRequestResult)result;
         //Assert
         result.Should().BeOfType<BadRequestResult>();
