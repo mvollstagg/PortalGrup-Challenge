@@ -1,7 +1,9 @@
+using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PortalGrupChallengeApp.API.Controllers;
+using PortalGrupChallengeApp.API.Models;
 using PortalGrupChallengeApp.Business.Abstract;
 using PortalGrupChallengeApp.Entities.Concrete;
 using PortalGrupChallengeApp.Tests.MockData;
@@ -11,9 +13,11 @@ namespace PortalGrupChallengeApp.Tests;
 public class CategoryServiceTest
 {
     private readonly Mock<ICategoryService> _mockCategoryService;
+    private readonly Mock<IMapper> _mockMapperService;
     public CategoryServiceTest()
     {
         _mockCategoryService = new Mock<ICategoryService>();
+        _mockMapperService = new Mock<IMapper>();
     }
 
     [Theory]
@@ -25,7 +29,7 @@ public class CategoryServiceTest
             .Setup(service => service.GetByCategoryIdAsync(categoryId))
             .ReturnsAsync(CategoryMD.GetCategoryById(categoryId));
             
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
         
         // Act
         var result = await sut.GetCategoryById(1);
@@ -46,7 +50,7 @@ public class CategoryServiceTest
             .Setup(service => service.GetByCategoryIdAsync(categoryId))
             .ReturnsAsync(CategoryMD.GetNullCategoryById(categoryId));
             
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
         
         // Act
         var result = await sut.GetCategoryById(1);
@@ -63,7 +67,7 @@ public class CategoryServiceTest
             .Setup(service => service.GetCategoryListAsync())
             .ReturnsAsync(CategoryMD.GetCategoryList());
             
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
         
         // Act
         var result = await sut.GetAllCategories();
@@ -82,7 +86,7 @@ public class CategoryServiceTest
             .Setup(service => service.GetCategoryListAsync())
             .ReturnsAsync(new List<Category>());
             
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
         
         // Act
         var result = await sut.GetAllCategories();
@@ -98,13 +102,16 @@ public class CategoryServiceTest
     {
         //Arrange
         var newCategory = CategoryMD.GetNewCategory();
+        var newCategoryDto = CategoryMD.GetNewCategoryDTO();
+        _mockMapperService.Setup(service => service.Map<Category>(It.IsAny<CategoryDTO>()))
+            .Returns(newCategory);
         _mockCategoryService
             .Setup(service => service.AddAsync(newCategory))
             .ReturnsAsync(newCategory);
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
 
         //Act
-        var result = await sut.CreateCategory(newCategory);
+        var result = await sut.CreateCategory(newCategoryDto);
         var resultValue = (Category)((ObjectResult)result).Value;
         //Assert
         result.Should().BeOfType<OkObjectResult>();
@@ -121,10 +128,10 @@ public class CategoryServiceTest
         _mockCategoryService
             .Setup(service => service.AddAsync(CategoryMD.GetNewCategory()));
             
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
         
         // Act
-        var result = await sut.CreateCategory(CategoryMD.GetNewCategory());
+        var result = await sut.CreateCategory(CategoryMD.GetNewCategoryDTO());
 
         // Assert
         result.Should().BeOfType<BadRequestResult>();
@@ -142,10 +149,10 @@ public class CategoryServiceTest
         _mockCategoryService
             .Setup(service => service.UpdateAsync(newCategory))
             .ReturnsAsync(updatedCategory);            
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
         
         // Act
-        var result = await sut.UpdateCategory(newCategory.Id, newCategory);
+        var result = await sut.UpdateCategory(newCategory.Id, CategoryMD.GetNewCategoryDTO());
         var resultValue = (BadRequestResult)result;
 
         // Assert
@@ -162,10 +169,10 @@ public class CategoryServiceTest
         _mockCategoryService
             .Setup(service => service.UpdateAsync(newCategory))
             .ReturnsAsync(updatedCategory);            
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
         
         // Act
-        var result = await sut.UpdateCategory(newCategory.Id, newCategory);
+        var result = await sut.UpdateCategory(newCategory.Id, CategoryMD.GetNewCategoryDTO());
         var resultValue = (NotFoundResult)result;
 
         // Assert
@@ -179,16 +186,18 @@ public class CategoryServiceTest
         //Arrange
         var newCategory = CategoryMD.GetNewCategory();
         var updatedCategory = CategoryMD.GetUpdatedCategory();
+        _mockMapperService.Setup(service => service.Map<Category>(It.IsAny<CategoryDTO>()))
+            .Returns(newCategory);
         _mockCategoryService
             .Setup(service => service.GetByCategoryIdAsync(newCategory.Id))
             .ReturnsAsync(newCategory);
         _mockCategoryService
             .Setup(service => service.UpdateAsync(newCategory))
             .ReturnsAsync(updatedCategory);
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
 
         //Act
-        var result = await sut.UpdateCategory(newCategory.Id, newCategory);
+        var result = await sut.UpdateCategory(newCategory.Id, CategoryMD.GetNewCategoryDTO());
         var resultValue = (Category)((ObjectResult)result).Value;
         //Assert
         result.Should().BeOfType<OkObjectResult>();
@@ -209,7 +218,7 @@ public class CategoryServiceTest
         _mockCategoryService
             .Setup(service => service.DeleteAsync(deleteCategory))
             .ReturnsAsync($"Category '{deleteCategory.Name}' is deleted");
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
 
         //Act
         var result = await sut.DeleteCategory(deleteCategory.Id);
@@ -228,7 +237,7 @@ public class CategoryServiceTest
         var deleteCategory = CategoryMD.GetNewCategory();
         _mockCategoryService
             .Setup(service => service.DeleteAsync(deleteCategory));
-        var sut = new CategoriesController(_mockCategoryService.Object);
+        var sut = new CategoriesController(_mockCategoryService.Object, _mockMapperService.Object);
 
         //Act
         var result = await sut.DeleteCategory(deleteCategory.Id);

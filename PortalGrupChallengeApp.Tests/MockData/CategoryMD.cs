@@ -1,3 +1,4 @@
+using PortalGrupChallengeApp.API.Models;
 using PortalGrupChallengeApp.Entities.Concrete;
 
 namespace PortalGrupChallengeApp.Tests.MockData;
@@ -57,6 +58,16 @@ public class CategoryMD
         return new Category
         {
             Id = 1,
+            Name = "New Category",
+            Status = true,
+            CreationDate = DateTime.Now
+        };
+    }
+
+    public static CategoryDTO GetNewCategoryDTO()
+    {
+        return new CategoryDTO
+        {
             Name = "New Category",
             Status = true,
             CreationDate = DateTime.Now

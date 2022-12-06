@@ -4,11 +4,11 @@ using PortalGrupChallengeApp.Entities.Concrete;
 
 namespace EmergencyCall.Api.Mapping;
 
-public class CustomerProfile : Profile
+public class CategoryProfile : Profile
 {
-    public CustomerProfile()
+    public CategoryProfile()
     {
-        CreateMap<Customer, CustomerDTO>();
-        CreateMap<CustomerDTO, Customer>();
+        CreateMap<Category, CategoryDTO>();
+        CreateMap<CategoryDTO, Category>();
     }
 }
