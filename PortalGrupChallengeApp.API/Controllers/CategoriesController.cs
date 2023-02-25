@@ -11,7 +11,7 @@ namespace PortalGrupChallengeApp.API.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-        public readonly IMapper _mapper;
+        private readonly IMapper _mapper;
         public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;

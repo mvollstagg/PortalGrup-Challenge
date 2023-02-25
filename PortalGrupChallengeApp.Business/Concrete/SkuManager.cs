@@ -26,13 +26,13 @@ public class SkuManager : ISkuService
 
     public async Task<SKU> GetBySKUIdAsync(int skuId)
     {
-        var result = await _skuDal.GetFirstOrDefaultAsync(x => x.Id == skuId);
+        var result = await _skuDal.GetFirstOrDefaultAsync(x => x.Id == skuId, x => x.Category);
         return result;
     }
 
     public async Task<List<SKU>> GetSKUListAsync()
     {
-        var resultList = await _skuDal.GetListAsync();
+        var resultList = await _skuDal.GetListAsync(null, null, x => x.Category);
         return resultList.ToList();
     }
 

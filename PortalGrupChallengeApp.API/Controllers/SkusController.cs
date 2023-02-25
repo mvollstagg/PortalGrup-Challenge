@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PortalGrupChallengeApp.Entities.Concrete;
 using PortalGrupChallengeApp.Business.Abstract;
+using AutoMapper;
+using PortalGrupChallengeApp.API.Models;
 
 namespace PortalGrupChallengeApp.API.Controllers
 {
@@ -9,18 +11,21 @@ namespace PortalGrupChallengeApp.API.Controllers
     public class SkusController : ControllerBase
     {
         private readonly ISkuService _skuService;
-        public SkusController(ISkuService skuService)
+        private readonly IMapper _mapper;
+        public SkusController(ISkuService skuService, IMapper mapper)
         {
             _skuService = skuService;
+            _mapper = mapper;
         }
 
         [HttpGet("")]
         public async Task<IActionResult> GetAllSkus()
         {
-            var categories = await _skuService.GetSKUListAsync();
-            if (categories != null)
+            var skus = await _skuService.GetSKUListAsync();
+            if (skus != null)
             {
-               return Ok(categories);
+                // var _skusResources = _mapper.Map<IEnumerable<SKU>, IEnumerable<SkuDTO>>(skus);
+                return Ok(skus);
             }
             return NoContent();
         }
@@ -37,24 +42,30 @@ namespace PortalGrupChallengeApp.API.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> CreateSku([FromBody] SKU newSku)
+        public async Task<IActionResult> CreateSku([FromBody] SkuDTO newSku)
         {
-
-            var sku = await _skuService.AddAsync(newSku);
+            var _mappedSku = _mapper.Map<SKU>(newSku);
+            var sku = await _skuService.AddAsync(_mappedSku);
             if (sku != null)
             {
-               return Ok(sku);
+                return Ok(sku);
             }
             return BadRequest();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSku([FromBody] SKU sku)
+        public async Task<IActionResult> UpdateSku([FromBody] SkuDTO sku)
         {            
-            var updatedSku = await _skuService.UpdateAsync(sku);
-            if (updatedSku != null)
+            var skuRow = await _skuService.GetBySKUIdAsync(id);
+            if(skuRow == null)
+                return NotFound();
+
+            var _mappedCustomer = _mapper.Map<Customer>(sku);
+            _mappedCustomer.Id = skuRow.Id;
+            var updatedCustomer = await _skuService.UpdateAsync(_mappedCustomer);
+            if (updatedCustomer != null)
             {
-               return Ok(updatedSku);
+                return Ok(sku);
             }
             return BadRequest();
         }

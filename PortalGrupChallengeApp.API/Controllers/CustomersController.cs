@@ -12,7 +12,7 @@ namespace PortalGrupChallengeApp.API.Controllers
     {
         private readonly ICustomerService _customerService;
         private readonly IAddressService _addressService;
-        public readonly IMapper _mapper;
+        private readonly IMapper _mapper;
         public CustomersController(ICustomerService customerService,
                                     IAddressService addressService,
                                     IMapper mapper)
